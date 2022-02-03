@@ -1,5 +1,6 @@
-import { Component, customElement } from '../lib/Component.js'
-import Navbar from '../components/Navbar.js'
+import { Component, customElement } from '../services/Component.js'
+
+import router from '../services/Router.js'
 
 const ItemsPage = customElement(
   'items-page',
@@ -11,25 +12,20 @@ const ItemsPage = customElement(
       }
     }
 
-    async atTheFirstRender() {
-      const link = `https://jsonplaceholder.typicode.com/users/${this.props.id}`
-      const response = await fetch(link)
-      const items = await response.json()
-      this.setState({ loading: false, item: items })
+    handleClick(id) {
+      router.navigate(`/items/item?id=${id}`)
     }
 
     render() {
-      return `
-        <${Navbar}></${Navbar}>
-          items 
-          ${
-            this.state.loading
-              ? 'loading...'
-              : `<div>${this.state.item.name}</div>`
-          }
+      const items = [1, 2, 3, 5]
 
-
-      `
+      return items
+        .map((item) => {
+          return `
+          <button @click="handleClick(${item})">${item}</button>
+          `
+        })
+        .join('')
     }
   }
 )

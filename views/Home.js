@@ -1,18 +1,27 @@
-import { Component, customElement } from '../lib/Component.js'
-import Navbar from '../components/Navbar.js'
-
+import { Component, customElement } from '../services/Component.js'
+import router from '../services/Router.js'
 const HomePage = customElement(
   'home-page',
   class extends Component {
     constructor() {
       super()
-      this.state = {}
+      this.state = {
+        count: 0
+      }
+    }
+
+    handleSubmit(e) {
+      e.preventDefault()
+      router.navigate('/items/item')
     }
 
     render() {
       return `
-          <${Navbar}></${Navbar}>
-          Home page
+        <form @submit="handleSubmit()">
+          <input type="text" placeholder="username"/>
+          <input type="password" placeholder="password"/>
+          <button type="submit">Login</button>
+        </form> 
       `
     }
   }

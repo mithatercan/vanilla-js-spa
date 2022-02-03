@@ -1,5 +1,5 @@
-import { Component, customElement } from '../lib/Component.js'
-
+import { Component, customElement } from '../services/Component.js'
+import globalState from '../services/GlobalState.js'
 const Navbar = customElement(
   'navbar-component',
   class extends Component {
@@ -9,11 +9,20 @@ const Navbar = customElement(
     }
 
     render() {
-      return `
-         <nav>
-           <a href="/">Home</a>
-           <a href="/items">Items</a>
-         </nav>
+      return /*html*/ `
+
+
+          ${setTimeout(() => {
+            globalState
+              .getState('categories', this)
+              .map((category) => {
+                return /*html*/ `
+              <a href="/${category}">${category}</a>
+            `
+              })
+              .join('')
+          }, 3000)}
+          
       `
     }
   }
