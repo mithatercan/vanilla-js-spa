@@ -1,0 +1,26 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: #f2f2f2;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+navbar-component {
+  /* position: sticky;
+  top: 0; */
+  background-color: red;
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+a {
+  background: rgb(248, 248, 248);
+}
