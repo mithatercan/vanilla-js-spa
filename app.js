@@ -1,44 +1,26 @@
 import router from '../services/Router.js'
 import Layout from './components/Layout.js'
-import Home from '../views/Home.js'
-import Items from '../views/Items.js'
-import Item from '../views/Item.js'
-import Error from '../views/Error.js'
+import Cart from './views/Cart.js'
+import Home from './views/Home.js'
+import Products from './views/Products.js'
+import Product from './views/Product.js'
 import globalState from '../services/GlobalState.js'
 
 globalState.initStates({
   user: null,
-  products: [],
-  categories: [],
   cart: []
 })
 
-// fetch for data
-const fetchData = async () => {
-  const productsUrl = 'https://fakestoreapi.com/products'
-  const categoriesUrl = 'https://fakestoreapi.com/products/categories'
-
-  const [products, categories] = await Promise.all([
-    fetch(productsUrl).then((res) => res.json()),
-    fetch(categoriesUrl).then((res) => res.json())
-  ])
-
-  globalState.setState({
-    products,
-    categories
-  })
-}
-
-fetchData()
-
-// routes
+// private route methods
 const authPrivateRoute = {
   condition: () => {
-    return globalState.getState('user')
+    const { user } = globalState.getStates(this)
+    return user
   },
   redirect: '/'
 }
 
+// routes
 router.addRoutes(
   {
     parentComponent: Layout,
@@ -48,11 +30,16 @@ router.addRoutes(
     '/': {
       view: Home
     },
-    '/items': {
-      view: Items
+    '/cart': {
+      view: Cart,
+      privateRoute: authPrivateRoute
     },
-    '/items/item': {
-      view: Item,
+    '/products': {
+      view: Products,
+      privateRoute: authPrivateRoute
+    },
+    '/products/product': {
+      view: Product,
       privateRoute: authPrivateRoute
     },
     '/error': {
