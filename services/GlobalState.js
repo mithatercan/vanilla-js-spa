@@ -3,14 +3,23 @@ class GlobalState {
     this.states = {}
   }
 
-  getState(state, component) {
-    return this.states[state]
-    if (component) component.connectedCallback()
+  // get components connected to the global state and update them
+  updateComponents() {
+    this.states = { ...this.states }
+    const components = document.querySelectorAll('[global-state]')
+    components.forEach((component) => {
+      component.reRender()
+    })
   }
 
-  setState(state, component) {
+  getStates(component) {
+    if (component) component.setAttribute('global-state', 'updated')
+    return this.states
+  }
+
+  setState(state) {
     this.states = { ...this.states, ...state }
-    if (component) component.connectedCallback()
+    this.updateComponents()
   }
 
   initStates(states) {
@@ -19,5 +28,4 @@ class GlobalState {
 }
 
 const globalState = new GlobalState()
-
 export default globalState

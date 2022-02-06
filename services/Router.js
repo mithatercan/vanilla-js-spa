@@ -8,16 +8,21 @@ class Router {
   }
 
   init() {
-    // handle pathname change
+    // handle hyperlinks clicks
     window.addEventListener('click', (e) => {
       if (e.target.tagName === 'A') {
         e.preventDefault()
         const path = e.target.getAttribute('href')
-        if (path !== this.currentPath() && this.routes[path]) {
+        if (path !== this.currentPath()) {
           const checkedPath = this.checkPrivateRoute(path)
           this.navigate(checkedPath)
         }
       }
+    })
+
+    // handle pathname change
+    window.addEventListener('popstate', (e) => {
+      this.render()
     })
   }
 
@@ -52,7 +57,7 @@ class Router {
     const splitPath = path.split('?')[0]
     const { privateRoute } = this.routes[splitPath]
     if (!privateRoute) return path
-    const { condition, redirect } = privateRoute
+    const { condition, redirect, message } = privateRoute
 
     if (condition()) {
       return path
