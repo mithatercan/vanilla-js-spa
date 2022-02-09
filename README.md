@@ -1,6 +1,6 @@
 # JavaScript SPA
 
-This is a simple try for single page application. Routing and rendering views. `Note : ` The application is not pixel perfect.
+This is a simple try for single page application. Routing and rendering views. This application is not pixel perfect.
 
 [Check live demo here](https://javascript-spa.netlify.app/)
 
