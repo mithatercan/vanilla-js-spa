@@ -2,6 +2,8 @@ import { Component, customElement } from '../services/Component.js'
 import router from '../services/Router.js'
 import globalState from '../services/GlobalState.js'
 import ProductItem from '../components/ProductItem.js'
+import { fetchProducts } from '../requests/products.js'
+import Spinner from '../components/Spinner.js'
 
 const ProductsView = customElement(
   'products-view',
@@ -13,22 +15,11 @@ const ProductsView = customElement(
       }
     }
 
-    atTheFirstRender() {
-      const fetchProducts = async () => {
-        const { category } = router.getQueries()
-        const { categories } = globalState.getStates(this)
-        const link = `https://fakestoreapi.com/products${
-          category ? `/category/${categories[category]}` : ''
-        }`
-        const response = await fetch(link)
-        const items = await response.json()
-        this.setState({ loading: false, items })
-      }
-      fetchProducts()
-    }
-
-    handleClick(id) {
-      // router.navigate(`/products/product?id=${id}`)
+    async atTheFirstRender() {
+      const { category } = router.getQueries()
+      const { categories } = globalState.getStates(this)
+      const items = await fetchProducts({ category, categories })
+      this.setState({ loading: false, items })
     }
 
     render() {
@@ -36,7 +27,7 @@ const ProductsView = customElement(
       return /*html*/ `
           ${
             loading
-              ? 'loading...'
+              ? `<${Spinner}></${Spinner}>`
               : items.map(
                   (item) => /*html*/ `
             <${ProductItem}

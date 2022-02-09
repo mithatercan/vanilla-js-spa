@@ -1,5 +1,7 @@
 import { Component, customElement } from '../services/Component.js'
-import ProductItem from '../components/ProductItem.js'
+import Spinner from '../components/Spinner.js'
+import ProductDetail from '../components/ProductDetail.js'
+import { getSingleProduct } from '../requests/products.js'
 import router from '../services/Router.js'
 
 const ProductView = customElement(
@@ -13,14 +15,9 @@ const ProductView = customElement(
     }
 
     async atTheFirstRender() {
-      const getSingleProduct = async () => {
-        const { id } = router.getQueries()
-        const link = `https://fakestoreapi.com/products/${id}`
-        const response = await fetch(link)
-        const item = await response.json()
-        this.setState({ loading: false, item })
-      }
-      getSingleProduct()
+      const { id } = router.getQueries()
+      const item = await getSingleProduct(id)
+      this.setState({ loading: false, item })
     }
 
     render() {
@@ -28,18 +25,17 @@ const ProductView = customElement(
       return /*html*/ `
           ${
             loading
-              ? 'loading...'
-              : /*html*/ `
-              <${ProductItem} 
-                title="${item.title}"
-                price="${item.price}"
+              ? `<${Spinner}></${Spinner}>`
+              : `
+              <${ProductDetail}
                 id="${item.id}"
-                category="${item.category}"
+                price="${item.price}"
                 description="${item.description}"
-                image="${item.image}">
-                type="single"
+                image="${item.image}"
+                title="${item.title}"
+                rating="${item.rating.rate}"
               >
-              </${ProductItem}>
+              </${ProductDetail}>
           `
           }
       `

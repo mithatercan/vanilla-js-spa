@@ -28,8 +28,8 @@ const HomePage = customElement(
         <form @submit="handleSubmit">
           <h1>Welcome to the store!</h1>
           <p>Please login to continue</p>
-          <input type="text" name="username" placeholder="username"/>
-          <input type="password" name="password" placeholder="password"/>
+          <input type="text" name="username" placeholder="username" required/>
+          <input type="password" name="password" placeholder="password" required/>
           <button type="submit" ${isLoggingIn && 'disabled'}>${
         isLoggingIn ? 'Logging in...' : 'Login'
       }</button>
