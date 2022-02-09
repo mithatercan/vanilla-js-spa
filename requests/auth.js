@@ -16,8 +16,7 @@ const logIn = async (dummyInfo) => {
 }
 
 const logOut = async () => {
-  console.log(globalState.getStates())
-  globalState.setState({})
+  globalState.setState({ user: null, cart: [], categories: [] })
   router.navigate('/')
 }
 
