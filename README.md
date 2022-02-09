@@ -198,7 +198,7 @@ router.addRoutes(
 
 ### - Private Route
 
-If we want to have a private route then we must declare an private route object like down below. And add it to our routes that we want to protect. If the condition is false then it will redirect us the redirect path.
+If we want to have a private route then we must declare a private route object like down below. And add it to our routes that we want to protect. If the condition is false then it will redirect us the redirect path.
 
 ```javascript
 const privateRoute = {
