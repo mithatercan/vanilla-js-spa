@@ -1,6 +1,8 @@
 import { logOut } from '../requests/auth.js'
+import { fetchCategories } from '../requests/products.js'
 import { Component, customElement } from '../services/Component.js'
 import globalState from '../services/GlobalState.js'
+
 const Navbar = customElement(
   'navbar-component',
   class extends Component {
@@ -9,31 +11,18 @@ const Navbar = customElement(
       this.state = {}
     }
 
-    atTheFirstRender() {
-      const fetchData = async () => {
-        const categoriesUrl = 'https://fakestoreapi.com/products/categories'
-        const categories = await fetch(categoriesUrl)
-        const categoriesJson = await categories.json()
-        globalState.setState({ categories: categoriesJson })
-      }
-      fetchData()
+    async atTheFirstRender() {
+      const categories = await fetchCategories()
+      globalState.setState({ categories: categories })
     }
 
-    isComponentUpdated() {
-      const el = this.$('button')
-      console.log(el)
-      el.addEventListener('click', (e) => {
-        this.testClick()
-      })
+    handleLogout() {
+      logOut()
     }
 
-    testClick() {
-      console.log('hey')
-    }
     render() {
       const { categories, user, cart } = globalState.getStates(this)
       return /*html*/ `
-
           ${
             categories && user
               ? categories
@@ -48,14 +37,15 @@ const Navbar = customElement(
           ${
             user
               ? /*html*/ `
-            <a href="/cart">CART 
-              <small>${cart.length !== 0 ? cart.length : ''}</small>
+            <a href="/cart">
+                <i class="material-icons">shopping_cart</i>
+              CART 
+              <small>${cart?.length !== 0 ? cart?.length : ''}</small>
             </a>
-            
-            <button @click='testClick'>LOGOUT</button>
+            <button @click="handleLogout()">LOGOUT</button>
           `
               : `
-            <a  href="/">LOGIN</a>
+            <a href="/">LOGIN</a>
           `
           }
          
