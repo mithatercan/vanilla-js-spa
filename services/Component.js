@@ -12,18 +12,10 @@ class Component extends HTMLElement {
 
   atTheRemoved() {}
 
-  reRender() {
-    this.state = this.state
-    this.innerHTML = this.render()
-  }
   //set state update the component
   setState(newState) {
     this.state = { ...this.state, ...newState }
     this.connectedCallback()
-  }
-
-  params(params) {
-    return params
   }
 
   addEvents() {

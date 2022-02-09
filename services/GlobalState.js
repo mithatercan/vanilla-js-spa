@@ -8,18 +8,18 @@ class GlobalState {
     this.states = { ...this.states }
     const components = document.querySelectorAll('[global-state]')
     components.forEach((component) => {
-      component.reRender()
+      component.connectedCallback()
     })
   }
 
   getStates(component) {
-    if (component) component.setAttribute('global-state', 'updated')
+    if (component) component.setAttribute('global-state', '')
     return this.states
   }
 
   setState(state) {
     this.states = { ...this.states, ...state }
-    this.updateComponents()
+    this.updateComponents(state)
   }
 
   initStates(states) {
