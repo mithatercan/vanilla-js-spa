@@ -134,7 +134,7 @@ const Component = customElement(
     }
 
     changeHeading() {
-      this.$(h1).innerText = 'Heading is changed'
+      this.$("h1").innerText = 'Heading is changed'
     }
 
     render() {
