@@ -168,7 +168,7 @@ const Component = customElement(
 
 ## Events
 
-Add events as an attribute to element. You must start "@" symbol to call the method in class.
+Add events as an attribute to element. You must start with "@" symbol to call the method in class.
 
 ```javascript
 
