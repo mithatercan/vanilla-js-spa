@@ -1,21 +1,26 @@
+import { getSingleProduct } from '../requests/products.js'
 import { customElement, Component } from '../services/Component.js'
 import globalState from '../services/GlobalState.js'
 import router from '../services/Router.js'
+
 const ProductItem = customElement(
   'product-item',
   class extends Component {
     constructor() {
       super()
-      this.state = {
-        count: 0
-      }
+      this.state = {}
     }
 
-    handleAddCart(id) {
+    async handleAdd(id) {
       const { cart } = globalState.getStates(this)
-      globalState.setState({ cart: [...cart, this.props] })
+      const item = await getSingleProduct(id)
+      globalState.setState({ cart: [...cart, item] })
+    }
 
-      // !  FETCH PRODUCT BY ID AND ADD TO CART
+    handleRemove(id) {
+      const { cart } = globalState.getStates(this)
+      const newCart = cart.filter((item) => item.id !== id)
+      globalState.setState({ cart: newCart })
     }
 
     goToDetails(id) {
@@ -23,7 +28,7 @@ const ProductItem = customElement(
     }
 
     render() {
-      const { title, price, id, image } = this.props
+      const { title, price, id, image, type } = this.props
 
       return /*html*/ `
        <div class="left-side">
@@ -38,10 +43,21 @@ const ProductItem = customElement(
        </div>
 
        <div class="buttons">
-        <button class="add-to-cart" 
-          @click="handleAddCart(${id})">
+        ${
+          type === 'cart'
+            ? /*html*/ `
+        <button class="remove-from-cart" 
+          @click="handleRemove(${id})">
+            Remove from cart
+        </button>
+        `
+            : /*html*/ `
+          <button class="add-to-cart" 
+          @click="handleAdd(${id})">
             Add to cart
         </button>
+        `
+        }
 
         <button @click="goToDetails(${id})">
           Details
