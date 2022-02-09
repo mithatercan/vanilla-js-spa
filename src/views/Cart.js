@@ -33,7 +33,7 @@ const CartView = customElement(
                 .join('')
             : /*html*/ `
           <div class="cart-empty">
-            <img src="../images/empty-cart.png"/>
+            <img src="../../public/images/empty-cart.png"/>
           </div>
         `
         }
