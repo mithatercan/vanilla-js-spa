@@ -1,10 +1,10 @@
-import router from '../services/Router.js'
-import Layout from './components/Layout.js'
-import Cart from './views/Cart.js'
-import Home from './views/Home.js'
-import Products from './views/Products.js'
-import Product from './views/Product.js'
-import globalState from '../services/GlobalState.js'
+import router from './src/services/Router.js'
+import Layout from './src/components/Layout.js'
+import Cart from './src/views/Cart.js'
+import Home from './src/views/Home.js'
+import Products from './src/views/Products.js'
+import Product from './src/views/Product.js'
+import globalState from './src/services/GlobalState.js'
 
 globalState.initStates({
   user: null,
