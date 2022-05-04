@@ -15,7 +15,7 @@ This is a simple try for single page application with vanilla JavaScript. Routin
 ```javascript
 import { customElement, Component } from 'services/Component.js'
 
-const Component = customElement(
+const MyComponent = customElement(
   'custom-component',
   class extends Component {
     constructor() {
@@ -62,7 +62,7 @@ HTML custom elements allow us to create reusable elements. In this application, 
 ```javascript
 import { customElement, Component } from 'services/Component.js'
 
-const Component = customElement(
+const MyComponent = customElement(
   'custom-component',
   class extends Component {
     constructor() {
@@ -87,7 +87,7 @@ myApp.innerHTML = `
 // second method
 
 myApp.innerHTML = `
-    <${Component}><${Component}>
+    <${MyComponent}><${MyComponent}>
   `
 ```
 
@@ -96,7 +96,7 @@ myApp.innerHTML = `
 In the class component, `setState()` method allow us to set a state and when the state changes the component re-renders.
 
 ```javascript
-const Component = customElement(
+const MyComponent = customElement(
   'custom-component',
   class extends Component {
     constructor() {
@@ -126,7 +126,7 @@ const Component = customElement(
 If you are having child elements in your component then you can easily select and manipulate them with `$()` method.
 
 ```javascript
-const Component = customElement(
+const MyComponent = customElement(
   'custom-component',
   class extends Component {
     constructor() {
@@ -245,7 +245,7 @@ router.addRoutes(
 // url = xxx/item?id=1
 
 import router from 'services/Router.js/'
-const Component = customElement(
+const MyComponent = customElement(
   'custom-component',
   class extends Component {
     constructor() {
@@ -268,7 +268,7 @@ The `navigate()` method allow us to navigate the route.
 
 ```javascript
 import router from 'services/Router.js/'
-const Component = customElement(
+const MyComponent = customElement(
   'custom-component',
   class extends Component {
     constructor() {
