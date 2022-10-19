@@ -31,7 +31,7 @@ const MyComponent = customElement(
     render() {
       return /*HTML*/ `
             <div>
-               <button @click="handleClick()">Increase</button>
+               <button @click="handleClick()">${this.state.count}</button>
             </div>
           `
     }
