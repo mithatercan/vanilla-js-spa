@@ -13,13 +13,16 @@ const HomePage = customElement(
 
     async handleSubmit(e) {
       e.preventDefault()
-      const { username, password } = e.target.elements
       this.setState({ isLoggingIn: true })
+      const { username, password } = e.target.elements
       const status = await logIn({
         username: username.value,
         password: password.value
       })
-      if (status) this.setState({ isLoggingIn: false })
+      
+      if (status) {
+        this.setState({ isLoggingIn: false })
+      }
     }
 
     render() {
@@ -30,9 +33,9 @@ const HomePage = customElement(
           <p>Please login to continue</p>
           <input type="text" name="username" placeholder="username" required/>
           <input type="password" name="password" placeholder="password" required/>
-          <button type="submit" ${isLoggingIn && 'disabled'}>${
-        isLoggingIn ? 'Logging in...' : 'Login'
-      }</button>
+          <button type="submit" ${isLoggingIn && 'disabled'}>
+            ${isLoggingIn ? 'Logging in...' : 'Login'}
+          </button>
         </form> 
       `
     }
