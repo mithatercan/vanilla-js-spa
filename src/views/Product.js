@@ -19,25 +19,25 @@ const ProductView = customElement(
       const item = await getSingleProduct(id)
       this.setState({ loading: false, item })
     }
+    
+    if(this.state.loading){
+      return `<${Spinner}></${Spinner}>`
+    }
 
     render() {
       const { loading, item } = this.state
       return /*html*/ `
-          ${
-            loading
-              ? `<${Spinner}></${Spinner}>`
-              : `
-              <${ProductDetail}
-                id="${item.id}"
-                price="${item.price}"
-                description="${item.description}"
-                image="${item.image}"
-                title="${item.title}"
-                rating="${item.rating.rate}"
-              >
-              </${ProductDetail}>
+        <${ProductDetail}
+          id="${item.id}"
+          price="${item.price}"
+          description="${item.description}"
+          image="${item.image}"
+          title="${item.title}"
+          rating="${item.rating.rate}"
+         >
+         </${ProductDetail}>
           `
-          }
+        }
       `
     }
   }
