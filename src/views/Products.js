@@ -21,15 +21,15 @@ const ProductsView = customElement(
       const items = await fetchProducts({ category, categories })
       this.setState({ loading: false, items })
     }
-
+    
+    if(this.state.loading){
+      return `<${Spinner}></${Spinner}>`
+    }
+    
     render() {
       const { items, loading } = this.state
       return /*html*/ `
-          ${
-            loading
-              ? `<${Spinner}></${Spinner}>`
-              : items.map(
-                  (item) => /*html*/ `
+          ${items.map((item) => /*html*/ `
             <${ProductItem}
               @click="handleClick(${item.id})"
               title="${item.title}" 
@@ -39,9 +39,8 @@ const ProductsView = customElement(
               description="${item.description}" 
               image="${item.image}">
             </${ProductItem}>
-          `
-                ).join``
-          }
+          `).join``
+        }
       `
     }
   }
